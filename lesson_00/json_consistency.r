@@ -9,12 +9,14 @@ library("stringr")
 
 # You need to supply a valid authentication hash
 # Log into Prolific and capture an AJAX request
-myAuthHash = "d96f63887a554e429292e7ff9c3a4eb2"
+myAuthHash = "DEADBEEFDEADBEEFDEADBEEFDEADBEEF"
+
+eligibilityURI = "https://www.prolific.co/api/v1/eligibility-count/"
 
 fileName <- "nationality_us.request.json"
 json.good <- readChar(fileName, file.info(fileName)$size)
 
-r1 <- POST("https://www.prolific.co/api/v1/eligibility-count/", 
+r1 <- POST(eligibilityURI, 
           add_headers(authorization = paste("Bearer", myAuthHash)), 
           content_type_json(), body = json.good)
 fromJSON(rawToChar(r1$content))$count
@@ -29,7 +31,7 @@ data <- fromJSON(json.good)
 
 json.new <- toJSON(data)
 
-r2 <- POST("https://www.prolific.co/api/v1/eligibility-count/", 
+r2 <- POST(eligibilityURI, 
           add_headers(authorization = paste("Bearer", myAuthHash)), 
           content_type_json(), body = json.new)
 
@@ -45,7 +47,7 @@ json.new <- toJSON(data)
 
 json.new <- str_replace(json.new, fixed('[\"SINGLE\"]'), '\"SINGLE\"')
 
-r3 <- POST("https://www.prolific.co/api/v1/eligibility-count/", 
+r3 <- POST(eligibilityURI, 
           add_headers(authorization = paste("Bearer", myAuthHash)), 
           content_type_json(), body = json.new)
 
