@@ -1,5 +1,5 @@
 # prolific-api
-Using prolific's undocumented API in R
+Reverse-engineering prolific's undocumented REST API in R
 
 ## Lesson 00: Payload requests to `eligibility-count/`
  - URI: `https://www.prolific.co/api/v1/eligibility-count/`
